@@ -55,7 +55,7 @@ RSpec.describe "merchant bulk disounts" do
         within("#bulk_discount-index-#{@merchant1.id}") do
           expect(page).to have_link("Create New Bulk Discount")
 
-          click_button("Create New Bulk Discount")
+          click_link("Create New Bulk Discount")
           
           expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
         end
@@ -65,7 +65,7 @@ RSpec.describe "merchant bulk disounts" do
         within("#bulk_discount-index-#{@merchant2.id}") do
           expect(page).to have_link("Create New Bulk Discount")
 
-          click_button("Create New Bulk Discount")
+          click_link("Create New Bulk Discount")
           
           expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant2))
         end

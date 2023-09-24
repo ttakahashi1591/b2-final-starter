@@ -5,10 +5,10 @@ RSpec.describe "merchant bulk disounts" do
     @merchant1 = Merchant.create!(name: "Hair Care")
     @merchant2 = Merchant.create!(name: "Chair Fair")
 
-    @bulk_discounts_1 = BulkDiscount.create!(percentage_discount: 0.25, quantity_threshold: 5, merchant_id: @merchant1.id)
+    @bulk_discounts_1 = BulkDiscount.create!(percentage_discount: 0.25, quantity_threshold: 7, merchant_id: @merchant1.id)
     @bulk_discounts_2 = BulkDiscount.create!(percentage_discount: 0.35, quantity_threshold: 10, merchant_id: @merchant1.id)
-    @bulk_discounts_3 = BulkDiscount.create!(percentage_discount: 0.55, quantity_threshold: 15, merchant_id: @merchant1.id)
-    @bulk_discounts_4 = BulkDiscount.create!(percentage_discount: 0.15, quantity_threshold: 6, merchant_id: @merchant2.id)
+    @bulk_discounts_3 = BulkDiscount.create!(percentage_discount: 0.55, quantity_threshold: 16, merchant_id: @merchant1.id)
+    @bulk_discounts_4 = BulkDiscount.create!(percentage_discount: 0.15, quantity_threshold: 8, merchant_id: @merchant2.id)
     @bulk_discounts_5 = BulkDiscount.create!(percentage_discount: 0.45, quantity_threshold: 9, merchant_id: @merchant2.id)
     @bulk_discounts_6 = BulkDiscount.create!(percentage_discount: 0.65, quantity_threshold: 12, merchant_id: @merchant2.id)
   end
@@ -30,6 +30,13 @@ RSpec.describe "merchant bulk disounts" do
           expect(page).to have_content("55%")
           expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
           expect(page).to have_link("Discount Details")
+
+          expect(page).to have_no_content("15%")
+          expect(page).to have_no_content("45%")
+          expect(page).to have_no_content("65%")
+          expect(page).to have_no_content(@bulk_discounts_4.quantity_threshold)
+          expect(page).to have_no_content(@bulk_discounts_5.quantity_threshold)
+          expect(page).to have_no_content(@bulk_discounts_6.quantity_threshold)
         end
 
         visit merchant_bulk_discounts_path(@merchant2.id)
@@ -46,6 +53,13 @@ RSpec.describe "merchant bulk disounts" do
           expect(page).to have_content("65%")
           expect(page).to have_content(@bulk_discounts_6.quantity_threshold)
           expect(page).to have_link("Discount Details")
+
+          expect(page).to have_no_content("25%")
+          expect(page).to have_no_content("35%")
+          expect(page).to have_no_content("55%")
+          expect(page).to have_no_content(@bulk_discounts_1.quantity_threshold)
+          expect(page).to have_no_content(@bulk_discounts_2.quantity_threshold)
+          expect(page).to have_no_content(@bulk_discounts_3.quantity_threshold)
         end
       end
 

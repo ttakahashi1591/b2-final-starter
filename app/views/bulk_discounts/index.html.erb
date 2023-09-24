@@ -2,7 +2,7 @@
 <section id="bulk_discount-index-<%= @merchant.id %>">
     <% @bulk_discounts.each do |bulk_discount|%>
       <ul>
-        <li>Percentage Discount: <%= bulk_discount.percentage_discount %></li>
+        <li>Percentage Discount: <%= (number_with_precision(bulk_discount.percentage_discount * 100, precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
         <li>Quantity Threshold: <%= bulk_discount.quantity_threshold %></li>
         <li><%= link_to "Discount Details", merchant_bulk_discount_path(@merchant, bulk_discount) %></li><br>
       </ul>

@@ -14,37 +14,61 @@ RSpec.describe "merchant bulk disounts" do
   end
 
   describe "As a merchant" do
-    it "then I am taken to my bulk discounts index page where I see all of my bulk discounts including their percentage discount and quantity thresholds as well as each bulk discount listed includes a link to its show page" do
-      visit merchant_bulk_discounts_path(@merchant1.id)
-      
-      within("#bulk_discount-index-#{@merchant1.id}") do
-        expect(page).to have_content(@bulk_discounts_1.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+    describe "when I visit my bulk discounts index page" do
+      it "then I see all of my bulk discounts including their percentage discount and quantity thresholds as well as each bulk discount listed includes a link to its show page" do
+        visit merchant_bulk_discounts_path(@merchant1.id)
+        
+        within("#bulk_discount-index-#{@merchant1.id}") do
+          expect(page).to have_content(@bulk_discounts_1.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
+          expect(page).to have_link("Discount Details")
 
-        expect(page).to have_content(@bulk_discounts_2.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_2.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+          expect(page).to have_content(@bulk_discounts_2.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_2.quantity_threshold)
+          expect(page).to have_link("Discount Details")
 
-        expect(page).to have_content(@bulk_discounts_1.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+          expect(page).to have_content(@bulk_discounts_1.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
+          expect(page).to have_link("Discount Details")
+        end
+
+        visit merchant_bulk_discounts_path(@merchant2.id)
+
+        within("#bulk_discount-index-#{@merchant2.id}") do
+          expect(page).to have_content(@bulk_discounts_4.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_4.quantity_threshold)
+          expect(page).to have_link("Discount Details")
+
+          expect(page).to have_content(@bulk_discounts_5.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_5.quantity_threshold)
+          expect(page).to have_link("Discount Details")
+
+          expect(page).to have_content(@bulk_discounts_6.percentage_discount)
+          expect(page).to have_content(@bulk_discounts_6.quantity_threshold)
+          expect(page).to have_link("Discount Details")
+        end
       end
 
-      visit merchant_bulk_discounts_path(@merchant2.id)
+      it "then I see a link to create a new discount and when I click this link, then I am taken to a new page where I see a form to add a new bulk discount" do
+        visit merchant_bulk_discounts_path(@merchant1.id)
 
-      within("#bulk_discount-index-#{@merchant2.id}") do
-        expect(page).to have_content(@bulk_discounts_4.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_4.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+        within("#bulk_discount-index-#{@merchant1.id}") do
+          expect(page).to have_link("Create New Bulk Discount")
 
-        expect(page).to have_content(@bulk_discounts_5.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_5.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+          click_button("Create New Bulk Discount")
+          
+          expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
+        end
 
-        expect(page).to have_content(@bulk_discounts_6.percentage_discount)
-        expect(page).to have_content(@bulk_discounts_6.quantity_threshold)
-        expect(page).to have_link("Discount Details")
+        visit merchant_bulk_discounts_path(@merchant1.id)
+
+        within("#bulk_discount-index-#{@merchant2.id}") do
+          expect(page).to have_link("Create New Bulk Discount")
+
+          click_button("Create New Bulk Discount")
+          
+          expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant2))
+        end
       end
     end   
   end

@@ -45,7 +45,6 @@ RSpec.describe "merchant bulk disounts" do
         expect(page).to have_content(@bulk_discounts_6.percentage_discount)
         expect(page).to have_content(@bulk_discounts_6.quantity_threshold)
         expect(page).to have_link("Discount Details")
-        save_and_open_page
       end
     end   
   end

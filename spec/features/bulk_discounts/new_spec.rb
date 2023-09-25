@@ -3,14 +3,10 @@ require "rails_helper"
 RSpec.describe "merchant bulk disounts new page" do
   before(:each) do
     @merchant1 = Merchant.create!(name: "Hair Care")
-    @merchant2 = Merchant.create!(name: "Chair Fair")
 
     @bulk_discounts_1 = BulkDiscount.create!(percentage_discount: 0.25, quantity_threshold: 7, merchant_id: @merchant1.id)
     @bulk_discounts_2 = BulkDiscount.create!(percentage_discount: 0.35, quantity_threshold: 10, merchant_id: @merchant1.id)
     @bulk_discounts_3 = BulkDiscount.create!(percentage_discount: 0.55, quantity_threshold: 16, merchant_id: @merchant1.id)
-    @bulk_discounts_4 = BulkDiscount.create!(percentage_discount: 0.15, quantity_threshold: 8, merchant_id: @merchant2.id)
-    @bulk_discounts_5 = BulkDiscount.create!(percentage_discount: 0.45, quantity_threshold: 9, merchant_id: @merchant2.id)
-    @bulk_discounts_6 = BulkDiscount.create!(percentage_discount: 0.65, quantity_threshold: 12, merchant_id: @merchant2.id)
   end
 
   describe "As a merchant" do
@@ -33,9 +29,10 @@ RSpec.describe "merchant bulk disounts new page" do
         fill_in("Percentage Discount", with: "0.77")
         fill_in("Quantity Threshold", with: "3")
 
-        click_button("Submit")
+        click_button("Create Bulk Discount")
         
         expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
+        expect(page).to have_content("Bulk Discount was successfully created!")
         expect(page).to have_content("77%")
         expect(page).to have_content("3")
       end

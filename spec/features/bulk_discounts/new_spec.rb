@@ -16,7 +16,7 @@ RSpec.describe "merchant bulk disounts new page" do
   describe "As a merchant" do
     describe "when I visit the bulk discounts new page" do
       it "then I see a form to add a new bulk discount where I do not fill in the form with valid data and then I am redirected back to the bulk discount new page where I see a flash alert" do
-        visit new_merchant_bulk_discounts_path(@merchant1.id)
+        visit new_merchant_bulk_discount_path(@merchant1.id)
 
         fill_in("Percentage Discount", with: "")
         fill_in("Quantity Threshold", with: "")
@@ -28,7 +28,7 @@ RSpec.describe "merchant bulk disounts new page" do
       end
       
       it "then I see a form to add a new bulk discount where I fill in the form with valid data and then I am redirected back to the bulk discount index page where I see my new bulk discount listed" do
-        visit new_merchant_bulk_discounts_path(@merchant1.id)
+        visit new_merchant_bulk_discount_path(@merchant1.id)
 
         fill_in("Percentage Discount", with: "0.77")
         fill_in("Quantity Threshold", with: "3")

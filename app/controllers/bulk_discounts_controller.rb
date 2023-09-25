@@ -14,12 +14,12 @@ class BulkDiscountsController < ApplicationController
     )
     @bulk_discount = @merchant.bulk_discounts.new(bulk_discount_params)
 
-    if @bulk_discount.save
-      redirect_to merchant_bulk_discounts_path(@merchant)
-      flash[:alert] = "Bulk Discount was successfully created!"   
-    else
+    if !@bulk_discount.save
       flash[:alert] = "Please Fill Out The Entire Form!"
-      render 'new'
+      redirect_to new_merchant_bulk_discount_path(@merchant)
+    else
+      flash[:alert] = "Bulk Discount was successfully created!"   
+      redirect_to merchant_bulk_discounts_path(@merchant)
     end
   end
 

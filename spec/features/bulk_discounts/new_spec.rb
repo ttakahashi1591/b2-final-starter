@@ -14,10 +14,10 @@ RSpec.describe "merchant bulk disounts new page" do
       it "then I see a form to add a new bulk discount where I do not fill in the form with valid data and then I am redirected back to the bulk discount new page where I see a flash alert" do
         visit new_merchant_bulk_discount_path(@merchant1.id)
 
-        fill_in("Percentage Discount", with: "")
-        fill_in("Quantity Threshold", with: "")
+        fill_in("Percentage discount", with: "")
+        fill_in("Quantity threshold", with: "")
 
-        click_button("Submit")
+        click_button("Create Bulk Discount")
         
         expect(current_path).to eq(new_merchant_bulk_discount_path(@merchant1))
         expect(page).to have_content("Please Fill Out The Entire Form!")
@@ -26,8 +26,8 @@ RSpec.describe "merchant bulk disounts new page" do
       it "then I see a form to add a new bulk discount where I fill in the form with valid data and then I am redirected back to the bulk discount index page where I see my new bulk discount listed" do
         visit new_merchant_bulk_discount_path(@merchant1.id)
 
-        fill_in("Percentage Discount", with: "0.77")
-        fill_in("Quantity Threshold", with: "3")
+        fill_in("Percentage discount", with: "0.77")
+        fill_in("Quantity threshold", with: "3")
 
         click_button("Create Bulk Discount")
         

@@ -88,7 +88,7 @@ RSpec.describe "merchant bulk disounts show page" do
 
           click_link "Edit This Bulk Discount"
 
-          expect(current_path).to eq(edit_merchant_bulk_discount_path(@bulk_discounts_1.id))
+          expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1.id, @bulk_discounts_1.id))
         end
 
         visit merchant_bulk_discount_path(@merchant1.id, @bulk_discounts_2.id)
@@ -107,7 +107,7 @@ RSpec.describe "merchant bulk disounts show page" do
 
           click_link "Edit This Bulk Discount"
 
-          expect(current_path).to eq(edit_merchant_bulk_discount_path(@bulk_discounts_1.id))
+          expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant1.id, @bulk_discounts_2.id))
         end
 
         visit merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_3.id)
@@ -126,10 +126,10 @@ RSpec.describe "merchant bulk disounts show page" do
 
           click_link "Edit This Bulk Discount"
 
-          expect(current_path).to eq(edit_merchant_bulk_discount_path(@bulk_discounts_2.id))
+          expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_3.id))
         end
 
-        visit merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_3.id)
+        visit merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_4.id)
 
         within("#bulk_discount-show-#{@bulk_discounts_4.id}") do
           expect(page).to have_content("45%")
@@ -145,7 +145,7 @@ RSpec.describe "merchant bulk disounts show page" do
 
           click_link "Edit This Bulk Discount"
 
-          expect(current_path).to eq(edit_merchant_bulk_discount_path(@bulk_discounts_4.id))
+          expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_4.id))
         end
       end
     end

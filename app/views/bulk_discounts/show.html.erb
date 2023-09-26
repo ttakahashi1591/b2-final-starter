@@ -1,0 +1,7 @@
+<h1>Bulk Discount Details</h1>
+<section id="bulk_discount-show-<%= @bulk_discount.id %>">
+  <ul>
+    <li>Percentage Discount: <%= (number_with_precision(@bulk_discount.percentage_discount * 100,precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
+    <li>Quantity Threshold: <%= @bulk_discount.quantity_threshold %></li>
+  </ul>
+</section>

@@ -85,6 +85,18 @@ RSpec.describe "merchant bulk disounts index page" do
       expect(page).to have_link("Discount Details")
       expect(page).to have_button("Delete This Bulk Discount")
 
+      expect(page).to have_no_content("15%")
+      expect(page).to have_no_content("25%")
+      expect(page).to have_no_content("35%")
+      expect(page).to have_no_content("45%")
+      expect(page).to have_no_content("55%")
+      expect(page).to have_no_content("65%")
+      expect(page).to have_no_content(@bulk_discounts_2.quantity_threshold)
+      expect(page).to have_no_content(@bulk_discounts_3.quantity_threshold)
+      expect(page).to have_no_content(@bulk_discounts_4.quantity_threshold)
+      expect(page).to have_no_content(@bulk_discounts_5.quantity_threshold)
+      expect(page).to have_no_content(@bulk_discounts_6.quantity_threshold)
+
       click_button "Delete This Bulk Discount"
 
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant3.id))

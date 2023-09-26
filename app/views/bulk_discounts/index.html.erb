@@ -1,11 +1,16 @@
 <h1><%= @merchant.name %> Bulk Discounts</h1><br>
 <section id="bulk_discount-index-<%= @merchant.id %>">
-    <% @bulk_discounts.each do |bulk_discount|%>
-      <ul>
-        <li>Percentage Discount: <%= (number_with_precision(bulk_discount.percentage_discount * 100, precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
-        <li>Quantity Threshold: <%= bulk_discount.quantity_threshold %></li>
-        <li><%= link_to "Discount Details", merchant_bulk_discount_path(@merchant, bulk_discount) %></li><br>
-      </ul>
-    <% end %>
+  <% @merchant.bulk_discounts.each do |bulk_discount|%>
+    <ul>
+      <li>Percentage Discount: <%= (number_with_precision(bulk_discount.percentage_discount * 100,precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
+      <li>Quantity Threshold: <%= bulk_discount.quantity_threshold %></li>
+      <li><%= link_to "Discount Details",merchant_bulk_discount_path(@merchant, bulk_discount) %></li>
+      <%= form_with(model: bulk_discount, url: "/merchants/#{@merchant.id}/bulk_discounts/#{bulk_discount.id}", method: :delete, data: { turbo: false }) do |form| %>
+        <%= form.hidden_field :authenticity_token,value: form_authenticity_token %>
+        <%= form.hidden_field :_method, value: "DELETE"%>
+        <%= form.submit "Delete This Bulk Discount" %></li>
+      <% end %>
+    </ul>
+  <% end %>
 </section><br>
 <p><%= link_to "Create New Bulk Discount", new_merchant_bulk_discount_path(@merchant) %></p>

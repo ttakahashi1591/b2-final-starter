@@ -1,7 +1,6 @@
 class BulkDiscountsController < ApplicationController
   def index
     @merchant = Merchant.find(params[:merchant_id])
-    @bulk_discounts = @merchant.bulk_discounts
   end
 
   def new
@@ -21,6 +20,13 @@ class BulkDiscountsController < ApplicationController
       flash[:alert] = "Bulk Discount was successfully created!"   
       redirect_to merchant_bulk_discounts_path(@merchant)
     end
+  end
+
+  def destroy
+    @merchant = Merchant.find(params[:merchant_id])
+    @bulk_discount = BulkDiscount.find(params[:id])
+    @bulk_discount.destroy
+    redirect_to merchant_bulk_discounts_path(@merchant)
   end
 
   private

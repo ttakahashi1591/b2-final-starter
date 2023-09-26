@@ -33,6 +33,11 @@ class BulkDiscountsController < ApplicationController
     @bulk_discount = BulkDiscount.find(params[:id])
   end
 
+  def edit
+    @bulk_discount = BulkDiscount.find(params[:id])
+    render :edit
+  end
+
   private
   def bulk_discount_params
     params.require(:bulk_discount).permit(:percentage_discount, :quantity_threshold)

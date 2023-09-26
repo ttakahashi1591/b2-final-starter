@@ -5,7 +5,6 @@
         <li>Percentage Discount: <%= (number_with_precision(bulk_discount.percentage_discount * 100, precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
         <li>Quantity Threshold: <%= bulk_discount.quantity_threshold %></li>
         <li><%= link_to "Discount Details", merchant_bulk_discount_path(@merchant, bulk_discount) %></li><br>
-      </ul>
     <% end %>
 </section><br>
 <p><%= link_to "Create New Bulk Discount", new_merchant_bulk_discount_path(@merchant) %></p>

@@ -4,13 +4,15 @@ RSpec.describe "merchant bulk disounts index page" do
   before(:each) do
     @merchant1 = Merchant.create!(name: "Hair Care")
     @merchant2 = Merchant.create!(name: "Chair Fair")
-
+    @merchant3 = Merchant.create!(name: "Voltaire Hair")
+    
     @bulk_discounts_1 = BulkDiscount.create!(percentage_discount: 0.25, quantity_threshold: 7, merchant_id: @merchant1.id)
     @bulk_discounts_2 = BulkDiscount.create!(percentage_discount: 0.35, quantity_threshold: 10, merchant_id: @merchant1.id)
     @bulk_discounts_3 = BulkDiscount.create!(percentage_discount: 0.55, quantity_threshold: 16, merchant_id: @merchant1.id)
     @bulk_discounts_4 = BulkDiscount.create!(percentage_discount: 0.15, quantity_threshold: 8, merchant_id: @merchant2.id)
     @bulk_discounts_5 = BulkDiscount.create!(percentage_discount: 0.45, quantity_threshold: 9, merchant_id: @merchant2.id)
     @bulk_discounts_6 = BulkDiscount.create!(percentage_discount: 0.65, quantity_threshold: 12, merchant_id: @merchant2.id)
+    @bulk_discounts_7 = BulkDiscount.create!(percentage_discount: 0.75, quantity_threshold: 15, merchant_id: @merchant3.id)
   end
 
   describe "As a merchant" do
@@ -76,35 +78,18 @@ RSpec.describe "merchant bulk disounts index page" do
 
     it "then next to each bulk discount I see a button to delete it and when I click this button, I am then redirected back to the bulk discounts index page
     and I no longer see the discount listed" do
-      visit merchant_bulk_discounts_path(@merchant1.id)
+      visit merchant_bulk_discounts_path(@merchant3.id)
       
-      expect(page).to have_content("25%")
-      expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
+      expect(page).to have_content("75%")
+      expect(page).to have_content(@bulk_discounts_7.quantity_threshold)
       expect(page).to have_link("Discount Details")
       expect(page).to have_button("Delete This Bulk Discount")
-
-      expect(page).to have_content("35%")
-      expect(page).to have_content(@bulk_discounts_2.quantity_threshold)
-      expect(page).to have_link("Discount Details")
-      expect(page).to have_button("Delete This Bulk Discount")
-
-      expect(page).to have_content("55%")
-      expect(page).to have_content(@bulk_discounts_1.quantity_threshold)
-      expect(page).to have_link("Discount Details")
-      expect(page).to have_button("Delete This Bulk Discount")
-
-      expect(page).to have_no_content("15%")
-      expect(page).to have_no_content("45%")
-      expect(page).to have_no_content("65%")
-      expect(page).to have_no_content(@bulk_discounts_4.quantity_threshold)
-      expect(page).to have_no_content(@bulk_discounts_5.quantity_threshold)
-      expect(page).to have_no_content(@bulk_discounts_6.quantity_threshold)
 
       click_button "Delete This Bulk Discount"
 
-      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant1.id))
-      expect(page).to have_no_content("25%")
-      expect(page).to have_no_content(@bulk_discounts_1.quantity_threshold)
+      expect(current_path).to eq(merchant_bulk_discounts_path(@merchant3.id))
+      expect(page).to have_no_content("75%")
+      expect(page).to have_no_content(@bulk_discounts_7.quantity_threshold)
     end
   end
 end

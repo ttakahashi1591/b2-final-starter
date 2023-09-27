@@ -37,7 +37,6 @@ class BulkDiscountsController < ApplicationController
   def edit
     @merchant = Merchant.find(params[:merchant_id])
     @bulk_discount = BulkDiscount.find(params[:id])
-    render :edit
   end
 
   def update

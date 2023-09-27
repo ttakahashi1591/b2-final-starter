@@ -96,7 +96,7 @@ RSpec.describe "merchant bulk disounts index page" do
       expect(page).to have_no_content(@bulk_discounts_4.quantity_threshold)
       expect(page).to have_no_content(@bulk_discounts_5.quantity_threshold)
       expect(page).to have_no_content(@bulk_discounts_6.quantity_threshold)
-
+      
       click_button "Delete This Bulk Discount"
 
       expect(current_path).to eq(merchant_bulk_discounts_path(@merchant3.id))

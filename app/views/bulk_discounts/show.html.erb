@@ -3,5 +3,6 @@
   <ul>
     <li>Percentage Discount: <%= (number_with_precision(@bulk_discount.percentage_discount * 100,precision: 2).gsub(/\.?0*$/, '') + '%') %></li>
     <li>Quantity Threshold: <%= @bulk_discount.quantity_threshold %></li>
+    <%= link_to "Edit This Bulk Discount", edit_merchant_bulk_discount_path(@merchant, @bulk_discount) %>
   </ul>
 </section>

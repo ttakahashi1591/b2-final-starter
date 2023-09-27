@@ -142,7 +142,7 @@ RSpec.describe "merchant bulk disounts show page" do
           expect(page).to have_no_content(@bulk_discounts_1.quantity_threshold)
           expect(page).to have_no_content(@bulk_discounts_2.quantity_threshold)
           expect(page).to have_no_content(@bulk_discounts_3.quantity_threshold)
-
+          
           click_link "Edit This Bulk Discount"
 
           expect(current_path).to eq(edit_merchant_bulk_discount_path(@merchant2.id, @bulk_discounts_4.id))

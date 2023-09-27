@@ -11,7 +11,7 @@ RSpec.describe "merchant bulk disounts show page" do
     describe "when I am taken to a bulk discount edit page" do
       it "I see that the discounts current attributes are pre-poluated in the form and when I change any/all of the information and click submit, then I am redirected to the bulk discount's show page where I see that the discount's attributes have been updated " do
         visit edit_merchant_bulk_discount_path(@merchant1.id, @bulk_discounts_1.id)
-save_and_open_page
+        
         expect(page).to have_field("Percentage discount", with: @bulk_discounts_1.percentage_discount)
         expect(page).to have_field("Quantity threshold", with: @bulk_discounts_1.quantity_threshold)
 
